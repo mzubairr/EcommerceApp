@@ -2,11 +2,11 @@ import { Keyboard, KeyboardAvoidingView, Platform, Pressable, ScrollView, Status
 import React, { useState } from 'react'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import styles from './Styles/NewPasswordStyles'
-import ButtonComp from '../../Components/ButtonComp'
-import InputLabel from '../../Components/InputLabel'
-import CustomModal from '../../Components/CustomModal'
-import ImagePath from '../../Constants/imagePath'
-import KeyboardAvoidingWrapper from '../../Components/KeyboardAvoidingWrapper'
+import ButtonComp from '../../components/ButtonComp'
+import InputLabel from '../../components/InputLabel'
+import CustomModal from '../../components/CustomModal'
+import ImagePath from '../../constants/imagePath'
+import KeyboardAvoidingWrapper from '../../components/KeyboardAvoidingWrapper'
 
 export default function NewPassword() {
 

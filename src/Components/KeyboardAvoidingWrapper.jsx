@@ -7,11 +7,11 @@ import {
     TouchableWithoutFeedback,
 } from 'react-native';
 
-export default function KeyboardAvoidingWrapper({ children }) {
+export default function KeyboardAvoidingWrapper({ children, style }) {
     return (
         <KeyboardAvoidingView
             behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-            style={{ flex: 1 }}
+            style={[{ flex: 1 }, style ]}
         >
             <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
                 <ScrollView
@@ -21,6 +21,6 @@ export default function KeyboardAvoidingWrapper({ children }) {
                     {children}
                 </ScrollView>
             </TouchableWithoutFeedback>
-        </KeyboardAvoidingView>
+        </KeyboardAvoidingView >
     );
 }

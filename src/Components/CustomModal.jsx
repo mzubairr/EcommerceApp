@@ -3,7 +3,7 @@ import React from 'react'
 import { moderateScale, moderateVerticalScale, scale } from 'react-native-size-matters'
 import ButtonComp from './ButtonComp'
 
-export default function CustomModal({ showModal, setShowModal, modalText, image, btnTitle, onPress }) {
+export default function CustomModal({ showModal, modalText, image, btnTitle, onPress }) {
     return (
         <Modal visible={showModal} transparent={true} animationType='slide'>
             <View style={styles.modalBottom}>

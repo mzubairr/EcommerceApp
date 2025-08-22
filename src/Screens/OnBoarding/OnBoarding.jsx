@@ -2,27 +2,26 @@ import { Image, StatusBar, Text, TouchableOpacity, View } from 'react-native'
 import React from 'react'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import styles from './styles'
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import imagePath from '../../constants/imagePath';
 
-export default function OnBoarding({ navigation }) {
+export default function OnBoarding({ onComplete }) {
 
-  // const onboaringState = async () => {
-  //   try {
-  //     await AsyncStorage.setItem('hasOnboarded', "true");
-  //   } catch (e) {
-  //     console.log(e);
-  //   }
-  // };
+  const handleGetStarted = async () => {
+    try {
+      await AsyncStorage.setItem('hasOnboarded', "true");
+      onComplete();
 
-  const handleGetStarted = () => {
-    onboaringState()
-    navigation.navigate("Login");
+    } catch (e) {
+      console.log("Error", e);
+    }
   }
 
   return (
     <SafeAreaView style={styles.container}>
       <StatusBar barStyle={"dark-content"} />
       <View style={styles.imageContainer}>
-        <Image source={require("../../assets/Images/onboarding-img.jpg")}
+        <Image source={imagePath.OnboardingImg}
           resizeMode='cover'
           style={styles.shoppingImg}
         />

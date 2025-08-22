@@ -1,5 +1,5 @@
 import { scale, moderateScale, moderateVerticalScale } from 'react-native-size-matters';
-import Colors from '../../../Constants/colors';
+import Colors from '../../../constants/colors';
 import { StyleSheet } from 'react-native';
 
 const styles = StyleSheet.create({
@@ -13,7 +13,8 @@ const styles = StyleSheet.create({
     },
     heading: {
         fontSize: scale(25),
-        fontFamily: "Satoshi-Bold"
+        fontFamily: "Satoshi-Bold",
+        color: Colors.txtPrimary,
     },
     actionBtns: {
         gap: moderateScale(16),
@@ -32,12 +33,11 @@ const styles = StyleSheet.create({
         flexDirection: "row",
         alignItems: "center",
         marginTop: moderateVerticalScale(16),
-        marginBottom: moderateVerticalScale(48),
         gap: moderateScale(8)
     },
     navLinkText: {
         fontSize: scale(16),
-        color: Colors.txtLightGray
+        color: Colors.txtPrimary
     },
     textWithUnderline: {
         borderBottomWidth: 1.5,
@@ -47,6 +47,10 @@ const styles = StyleSheet.create({
         fontSize: scale(14),
         color: Colors.btnBg,
         fontWeight: "500"
+    },
+    error: {
+        marginBottom: moderateVerticalScale(48),
+        marginLeft: moderateScale(5)
     }
 })
 

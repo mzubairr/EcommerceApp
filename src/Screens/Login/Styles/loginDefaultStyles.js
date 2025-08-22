@@ -1,5 +1,5 @@
 import { scale, moderateScale, moderateVerticalScale } from 'react-native-size-matters';
-import Colors from '../../../Constants/colors';
+import Colors from '../../../constants/colors';
 import { StyleSheet } from 'react-native';
 
 const styles = StyleSheet.create({
@@ -13,7 +13,8 @@ const styles = StyleSheet.create({
     },
     heading: {
         fontSize: scale(25),
-        fontFamily: "Satoshi-Bold"
+        fontFamily: "Satoshi-Bold",
+        color: Colors.txtPrimary,
     },
     actionBtns: {
         gap: moderateScale(16),
@@ -26,6 +27,7 @@ const styles = StyleSheet.create({
         marginTop: moderateVerticalScale(8),
         marginBottom: moderateVerticalScale(60),
         fontSize: scale(16),
+        color: Colors.txtPrimary,
         textAlign: "right"
     },
 })

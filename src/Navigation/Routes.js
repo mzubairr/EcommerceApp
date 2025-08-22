@@ -1,47 +1,67 @@
-import { NavigationContainer } from '@react-navigation/native'
+import { useState, useEffect } from 'react';
+import { NavigationContainer } from '@react-navigation/native';
 import AuthStack from './AuthStack';
 import HomeStack from './HomeStack';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import OnBoardingStack from './OnboardingStack';
-// import AsyncStorage from '@react-native-async-storage/async-storage';
+import { getAuth, onAuthStateChanged } from '@react-native-firebase/auth';
+import { ActivityIndicator, View } from 'react-native';
+import Colors from '../constants/colors';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const Routes = () => {
+    const [hasOnboarded, setHasOnboarded] = useState(null);
+    const [loading, setLoading] = useState(true);
+    const [user, setUser] = useState(null);
 
-    // const [hasOnboarded, sethasOnboarded] = useState(false);
-    // console.log(hasOnboarded);
-    
-    // useEffect(() => {
-    //     const onboaringState = async () => {
-    //         try {
-    //             const isOnboarded = await AsyncStorage.getItem('hasOnboarded');
-    //             sethasOnboarded(isOnboarded);
+    // Handle onboarding and user
+    useEffect(() => {
 
-    //         } catch (e) {
-    //             console.log(e);
-    //         }
-    //     };
-    //     onboaringState();
-    // }, [])
+        const subscriber = onAuthStateChanged(getAuth(), (user) => {
+            setUser(user);
+        });
 
-    // if (hasOnboarded) {
-    //     // firebase user exist
-    //     // if (firebasUser) {
-    //     //     // home
-    //     // } else {
-    //     //     // login
-    //     // }
-    // } else {
-    //     <OnBoardingStack />
-    // }
+        const checkOnboarding = async () => {
+            try {
+                const value = await AsyncStorage.getItem('hasOnboarded');
+                setHasOnboarded(value === "true");
+            } catch (e) {
+                console.log(e);
+            } finally {
+                setLoading(false);
+            }
+        };
+        checkOnboarding();
+
+        return subscriber;
+
+    }, []);
+
+    if (loading || hasOnboarded === null) {
+        return (
+            <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+                <ActivityIndicator size="large" color={Colors.bg} />
+            </View>
+        );
+    }
+
+    let ScreenToRender;
+
+    if (!hasOnboarded) {
+        ScreenToRender = <OnBoardingStack setHasOnboarded={setHasOnboarded} />;
+    } else if (!user) {
+        ScreenToRender = <AuthStack />;
+    } else {
+        ScreenToRender = <HomeStack user={user} />;
+    }
 
     return (
         <SafeAreaProvider>
             <NavigationContainer>
-                {true ? <AuthStack /> : <HomeStack />}
-                {/* <OnBoardingStack /> */}
+                {ScreenToRender}
             </NavigationContainer>
         </SafeAreaProvider>
-    )
-}
+    );
+};
 
-export default Routes
+export default Routes;

@@ -13,6 +13,12 @@ export { default as OtpCode } from './ForgotPassword/OtpCode'
 // Main Stack Screens
 
 export { default as Home } from './Home/Home'
-export { default as Favorite } from './Favorite/Favorite'
+export { default as SavedItems } from './SavedItems/SavedItems'
 export { default as Cart } from './Cart/Cart'
 export { default as Profile } from './Profile/Profile'
+
+// Home Stack
+
+export { default as Category } from './Home/Category/Category'
+export { default as BrowseProduct } from './Home/BrowseProduct/BrowseProduct'
+export { default as ProductDetails } from './Home/ProductDetails/ProductDetails'

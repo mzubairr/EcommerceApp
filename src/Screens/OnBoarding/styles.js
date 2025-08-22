@@ -1,5 +1,5 @@
 import { scale, moderateScale, moderateVerticalScale } from 'react-native-size-matters';
-import Colors from '../../Constants/colors';
+import Colors from '../../constants/colors';
 import { StyleSheet } from 'react-native';
 
 const styles = StyleSheet.create({
@@ -23,11 +23,12 @@ const styles = StyleSheet.create({
         gap: moderateScale(55),
     },
     subContainer: {
-        gap: 8
+        gap: moderateScale(8)
     },
     heading: {
         fontSize: scale(33),
         textAlign: "center",
+        color: Colors.txtPrimary,
     },
     secondaryTxt: {
         fontSize: scale(14),

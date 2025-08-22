@@ -1,5 +1,5 @@
 import { scale, moderateScale, moderateVerticalScale } from 'react-native-size-matters';
-import Colors from '../../../Constants/colors';
+import Colors from '../../../constants/colors';
 import { StyleSheet } from 'react-native';
 
 const styles = StyleSheet.create({
@@ -18,13 +18,15 @@ const styles = StyleSheet.create({
     },
     heading: {
         fontSize: scale(32),
-        fontFamily: "Satoshi-Bold"
+        fontFamily: "Satoshi-Bold",
+        color: Colors.txtPrimary,
     },
     actionBtns: {
         gap: moderateScale(16),
         marginVertical: moderateVerticalScale(48),
     },
     socialBtn: {
+        width: "100%",
         borderWidth: 1,
         borderColor: Colors.border,
         borderRadius: moderateScale(10),
@@ -32,21 +34,22 @@ const styles = StyleSheet.create({
         flexDirection: "row",
         alignItems: "center",
         justifyContent: "center",
-        gap: 10
+        gap: moderateScale(10)
     },
     socialIcon: {
         height: moderateScale(22),
-        width: moderateScale(22)
+        width: moderateScale(22),
     },
     secondaryTxt: {
         fontSize: scale(14),
+        color: Colors.txtPrimary,
     },
     separatorLine: {
         marginBottom: moderateVerticalScale(48),
         flexDirection: "row",
         alignItems: "center",
         justifyContent: "center",
-        gap: 5,
+        gap: moderateScale(5),
         overflow: "hidden"
     },
     breakLine: {
@@ -55,7 +58,7 @@ const styles = StyleSheet.create({
         backgroundColor: Colors.border,
     },
     breakLineText: {
-        color: Colors.txtLightGray,
+        color: Colors.txtPrimary,
         fontSize: scale(14)
     },
     navLink: {

@@ -1,25 +1,31 @@
 import { Text, TouchableOpacity } from 'react-native'
 import { scale, moderateScale, moderateVerticalScale } from 'react-native-size-matters';
-import Colors from '../Constants/colors';
+import Colors from '../constants/colors';
 import { StyleSheet } from 'react-native';
 
-export default function ButtonComp({ onPress, btnTitle, style = {} }) {
+export default function ButtonComp({ btnTitle, disabled, countDown, style = {}, ...props }) {
     return (
-        <TouchableOpacity onPress={onPress} style={[styles.startBtn, style]}>
-            <Text style={styles.btnText}>{btnTitle}</Text>
+        <TouchableOpacity
+            {...props}
+            style={[
+                styles.startBtn,
+                { ...style },
+                { backgroundColor: disabled ? Colors.disbaledBtn : Colors.btnBg }
+            ]}>
+            <Text style={styles.btnText}>{btnTitle} {countDown > 0 && countDown}</Text>
         </TouchableOpacity>
     )
 }
 
 const styles = StyleSheet.create({
     startBtn: {
-        backgroundColor: Colors.btnBg,
         paddingVertical: moderateVerticalScale(14),
         alignItems: "center",
         borderRadius: moderateScale(10)
     },
     btnText: {
         color: Colors.btnText,
-        fontSize: scale(15)
+        fontSize: scale(15),
+        fontFamily: "Satoshi-Bold",
     }
 })
