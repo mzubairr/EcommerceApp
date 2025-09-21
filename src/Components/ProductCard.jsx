@@ -3,6 +3,7 @@ import React from 'react'
 import { moderateScale, moderateVerticalScale, scale } from 'react-native-size-matters'
 import Colors from '../constants/colors'
 import imagePath from '../constants/imagePath'
+import { Heart } from 'lucide-react-native'
 
 export default function ProductCard({ item, onPress, handleFavorite, favoriteIds }) {
     return (
@@ -14,9 +15,10 @@ export default function ProductCard({ item, onPress, handleFavorite, favoriteIds
                     resizeMode='contain'
                 />
                 <TouchableOpacity onPress={handleFavorite} style={styles.favoriteIcon}>
-                    <Image
-                        source={favoriteIds.includes(item.id) ? imagePath.savedIcon : imagePath.heart}
-                        resizeMode='contain'
+                    <Heart
+                        size={moderateScale(24)}
+                        fill={favoriteIds.includes(item.id) ? Colors.error : "#fff"}
+                        color={favoriteIds.includes(item.id) ? Colors.error : "#000"}
                     />
                 </TouchableOpacity>
             </View>

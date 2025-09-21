@@ -11,7 +11,7 @@ const styles = StyleSheet.create({
     headerContainer: {
         flexDirection: 'row',
         alignItems: 'center',
-        paddingVertical: moderateScale(16),
+        paddingVertical: moderateVerticalScale(16),
         justifyContent: 'flex-start',
     },
     arrowIcon: {
@@ -35,9 +35,15 @@ const styles = StyleSheet.create({
     },
     columnSeparate: {
         justifyContent: 'space-between',
-        gap: 16,
+        gap: moderateScale(16),
         marginBottom: moderateVerticalScale(24)
     },
+    loading: {
+        flex: 1,
+        justifyContent: "center",
+        alignItems: "center",
+        backgroundColor: Colors.bg
+    }
 })
 
 export default styles

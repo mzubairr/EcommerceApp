@@ -2,9 +2,9 @@ import { View, Text, StyleSheet, TextInput } from 'react-native'
 import React, { useState } from 'react'
 import { moderateScale, moderateVerticalScale, scale } from 'react-native-size-matters'
 import Colors from '../constants/colors'
-import Feather from "@react-native-vector-icons/feather";
+import { Eye, EyeOff } from 'lucide-react-native';
 
-export default function InputLabel({ label, firstIcon, secondIcon, inpuRef, meta, ...props }) {
+export default function InputLabel({ label, passwordIcon, inpuRef, meta, ...props }) {
 
     const [secureTextEntry, setsecureTextEntry] = useState(false)
     const [inputFocus, setInputFocus] = useState(false)
@@ -34,15 +34,21 @@ export default function InputLabel({ label, firstIcon, secondIcon, inpuRef, meta
             <Text style={styles.inplabel}>{label}</Text>
             <View style={[styles.inputFieldContainer, getBorderColor()]}>
                 <TextInput
+                    onSubmitEditing={props.onSubmitEditing}
                     {...inputProps}
                     style={styles.inputField} />
                 {
-                    inputFocus && firstIcon && secondIcon && (
+                    inputFocus && passwordIcon && (
                         <View style={styles.iconContainer}>
-                            {<Feather
-                                onPress={() => setsecureTextEntry(!secureTextEntry)}
-                                name={secureTextEntry ? firstIcon : secondIcon}
-                                size={22} color={"#000000"} />}
+                            {secureTextEntry ? (
+                                <EyeOff
+                                    onPress={() => setsecureTextEntry(!secureTextEntry)}
+                                    size={moderateScale(22)} color={"#000000"} />
+                            ) : (
+                                <Eye
+                                    onPress={() => setsecureTextEntry(!secureTextEntry)}
+                                    size={moderateScale(22)} color={"#000000"} />
+                            )}
                         </View>
                     )
                 }

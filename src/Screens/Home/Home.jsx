@@ -1,4 +1,4 @@
-import { FlatList, Image, StatusBar, Text, TextInput, TouchableOpacity, View } from 'react-native'
+import { ActivityIndicator, FlatList, Image, Text, TouchableOpacity, View } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import imagePath from '../../constants/imagePath'
 import styles from './homeStyles'
@@ -9,8 +9,10 @@ import Carousel, { Pagination } from "react-native-reanimated-carousel";
 import axios from 'axios'
 import ProductCard from '../../components/ProductCard'
 import { addFavorite, removeFavorite, listenToFavorites } from '../../Services/Firebase/db'
+import { Bell, ScanSearch, Search } from 'lucide-react-native'
+import { moderateScale } from 'react-native-size-matters'
 
-const Home = ({ navigation, user }) => {
+const Home = ({ navigation }) => {
 
   const data = [...new Array(6).keys()];
   const ref = useRef(null);
@@ -19,15 +21,15 @@ const Home = ({ navigation, user }) => {
   const [category, setCategory] = useState([]);
   const [products, setProducts] = useState([]);
   const [favoriteIds, setFavoriteIds] = useState([]);
+  const [isCategoryLoading, setIsCategoryLoading] = useState(true);
+  const [isProductLoading, setIsProductLoading] = useState(true);
 
   const toggleFavorite = (productId) => {
     const isFav = favoriteIds.includes(productId);
 
     if (isFav) {
-      // Remove
       removeFavorite(productId);
     } else {
-      // Add
       addFavorite(productId);
     }
   };
@@ -35,16 +37,29 @@ const Home = ({ navigation, user }) => {
   useEffect(() => {
 
     const getCategory = async () => {
-      const response = await axios.get('https://dummyjson.com/products/categories');
-      const limitedCategories = response.data.filter((item) => categoryItems.hasOwnProperty(item.slug));
-      setCategory(limitedCategories);
+      try {
+        const response = await axios.get('https://dummyjson.com/products/categories');
+        const limitedCategories = response.data.filter((item) => categoryItems.hasOwnProperty(item.slug));
+        setCategory(limitedCategories);
+      } catch (error) {
+        console.log(error);
+      } finally {
+        setIsCategoryLoading(false);
+      }
     }
-    getCategory();
 
     const getProducts = async () => {
-      const response = await axios.get("https://dummyjson.com/products");
-      setProducts(response.data.products);
+      try {
+        const response = await axios.get("https://dummyjson.com/products");
+        setProducts(response.data.products);
+      } catch (error) {
+        console.log(error);
+      } finally {
+        setIsProductLoading(false);
+      }
     }
+
+    getCategory();
     getProducts();
 
     const unsubscribe = listenToFavorites(setFavoriteIds);
@@ -81,18 +96,22 @@ const Home = ({ navigation, user }) => {
 
   const onPressPagination = (index) => {
     ref.current?.scrollTo({
-      /**
-       * Calculate the difference between the current index and the target index
-       * to ensure that the carousel scrolls to the nearest index
-       */
       count: index - progress.value,
       animated: true,
     });
   };
 
+  // Agar koi bhi loading ho to spinner dikhao
+  if (isCategoryLoading || isProductLoading) {
+    return (
+      <View style={styles.loading}>
+        <ActivityIndicator size="large" color={Colors.btnBg} />
+      </View>
+    )
+  }
+
   return (
     <SafeAreaView style={styles.mainContainer}>
-      <StatusBar barStyle="dark-content" />
       <FlatList
         columnWrapperStyle={styles.columnSeparate}
         numColumns={2}
@@ -106,21 +125,12 @@ const Home = ({ navigation, user }) => {
                 <Text style={[styles.locationText, styles.locationHeading]}>Location</Text>
                 <Text style={styles.locationText}>Karachi,Pakistan</Text>
               </View>
-              <Image
-                style={styles.bellIcon}
-                source={imagePath.notificationIcon}
-              />
+              <Bell size={moderateScale(24)} color="#000" />
             </View>
             <View style={styles.searchBarContainer}>
-              <Image
-                style={styles.bellIcon}
-                source={imagePath.searchIcon}
-              />
+              <Search size={moderateScale(24)} color="#000" />
               <Text onPress={() => navigation.navigate("BrowseProduct")} style={styles.searchBar}>Find your favorite items</Text>
-              <Image
-                style={styles.bellIcon}
-                source={imagePath.searchVisualIcon}
-              />
+              <ScanSearch size={moderateScale(24)} color={Colors.placeholder} />
             </View>
             <View>
               <View style={styles.categoryContainer}>
@@ -150,7 +160,7 @@ const Home = ({ navigation, user }) => {
                   </TouchableOpacity>
                 )} />
             </View>
-            {/* <View
+            <View
               style={styles.carouselContainer}
               onLayout={(event) => {
                 const { width } = event.nativeEvent.layout;
@@ -188,7 +198,7 @@ const Home = ({ navigation, user }) => {
                 containerStyle={{ gap: 5, marginTop: 10 }}
                 onPress={onPressPagination}
               />
-            </View> */}
+            </View>
             <View style={styles.hotDealSec}>
               <Text style={styles.hotDeal}>Hot Deals</Text>
             </View>

@@ -11,14 +11,11 @@ const styles = StyleSheet.create({
     headerContainer: {
         flexDirection: 'row',
         alignItems: 'center',
-        paddingVertical: moderateScale(16),
+        paddingTop: moderateScale(16),
+        paddingBottom: moderateScale(24),
         justifyContent: 'flex-start',
     },
-    arrowIcon: {
-        width: moderateScale(24),
-        height: moderateScale(24)
-    },
-    categoryTitle: {
+    headerTitle: {
         fontSize: scale(24),
         fontFamily: "Satoshi-Bold",
         color: Colors.text,
@@ -45,10 +42,6 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         gap: moderateScale(16)
     },
-    cartDuotoneImg: {
-        width: moderateScale(64),
-        height: moderateScale(64),
-    },
     emptyCartTitle: {
         fontSize: scale(20),
         fontFamily: "Satoshi-Bold",
@@ -61,6 +54,49 @@ const styles = StyleSheet.create({
         color: Colors.txtSecondary,
         textAlign: 'center',
         width: moderateScale(270),
+    },
+    footerContainer: {
+        marginTop: moderateVerticalScale(16),
+        marginBottom: moderateVerticalScale(44),
+        gap: moderateScale(12)
+    },
+    footerItem: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+    },
+    footerText: {
+        fontSize: scale(16),
+        color: Colors.txtSecondary,
+        fontFamily: "Satoshi-Regular",
+    },
+    priceText: {
+        fontSize: scale(16),
+        color: Colors.txtPrimary,
+        fontFamily: "Satoshi-Medium",
+    },
+    separator: {
+        flex: 1,
+        borderStyle: "dashed",
+        borderWidth: 1.2,
+        borderColor: Colors.lightGray,
+    },
+    deleteButton: {
+        marginLeft: moderateScale(16),
+        backgroundColor: Colors.lightRed,
+        justifyContent: 'center',
+        alignItems: 'center',
+        minWidth: moderateScale(66),
+    },
+    deleteIcon: {
+        height: moderateScale(24),
+        width: moderateScale(24),
+    },
+    loading: {
+        flex: 1,
+        justifyContent: "center",
+        alignItems: "center",
+        backgroundColor: Colors.bg
     }
 })
 

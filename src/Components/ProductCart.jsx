@@ -2,9 +2,9 @@ import { View, Text, TouchableOpacity, Image, StyleSheet, Pressable } from 'reac
 import React from 'react'
 import { moderateScale, moderateVerticalScale, scale } from 'react-native-size-matters'
 import Colors from '../constants/colors'
-import imagePath from '../constants/imagePath'
+import { Minus, Plus } from 'lucide-react-native'
 
-export default function ProductCart({ item, onPress }) {
+export default function ProductCart({ item, quantity, addQty, lessQty, cart }) {
     return (
         <Pressable style={styles.cartContainer}>
             <Image
@@ -18,23 +18,15 @@ export default function ProductCart({ item, onPress }) {
                     <Text numberOfLines={2} style={styles.cartSubTitle}>Size: XL</Text>
                     <Text numberOfLines={2} style={styles.cartMiniTitle}>${item?.price.toFixed(2)}</Text>
                 </View>
-                <View style={styles.productIncDec}>
-                    <TouchableOpacity style={styles.decButton} onPress={onPress} >
-                        <Image
-                            style={styles.decImg}
-                            source={imagePath.minusIcon}
-                            resizeMode='contain'
-                        />
+                {cart && <View style={styles.productIncDec}>
+                    <TouchableOpacity style={styles.decButton} onPress={() => lessQty()}>
+                        <Minus size={moderateScale(22)} color="#000" />
                     </TouchableOpacity>
-                    <Text style={styles.countTxt}>1</Text>
-                    <TouchableOpacity style={styles.incButton} onPress={onPress} >
-                        <Image
-                            style={styles.incImg}
-                            source={imagePath.minusIcon}
-                            resizeMode='contain'
-                        />
+                    <Text style={styles.countTxt}>{quantity}</Text>
+                    <TouchableOpacity style={styles.incButton} onPress={() => addQty()} >
+                        <Plus size={moderateScale(22)} color="#fff" />
                     </TouchableOpacity>
-                </View>
+                </View>}
             </View>
         </Pressable>
     )
@@ -45,9 +37,12 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'center',
         gap: moderateScale(16),
+        borderBottomWidth: 1,
+        borderBottomColor: Colors.lightGray,
+        paddingBottom: moderateVerticalScale(16),
+        backgroundColor: Colors.bg,
     },
     cartImg: {
-        backgroundColor: "red",
         height: moderateScale(80),
         width: moderateScale(80),
         borderRadius: moderateScale(10),
@@ -55,13 +50,11 @@ const styles = StyleSheet.create({
     cartContent: {
         flexDirection: "row",
         alignItems: 'center',
-        backgroundColor: "purple",
         flex: 1,
     },
     cartTextContainer: {
-        backgroundColor: "salmon",
         gap: moderateScale(4),
-        minWidth: "40%",
+        flex: 1,
     },
     cartTitle: {
         fontSize: scale(16),
@@ -82,29 +75,25 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'flex-end',
         gap: moderateScale(12),
-        backgroundColor: "green",
-        minWidth: "60%",
     },
     decButton: {
-        backgroundColor: Colors.border,
-        padding: moderateScale(8),
+        backgroundColor: Colors.lightGray,
+        paddingVertical: moderateVerticalScale(11),
+        paddingHorizontal: moderateScale(6),
         borderRadius: moderateScale(4),
         width: moderateScale(22),
         height: moderateScale(22),
+        alignItems: "center",
+        justifyContent: "center",
     },
     incButton: {
         backgroundColor: Colors.btnBg,
-        padding: moderateScale(8),
+        padding: moderateScale(6),
         borderRadius: moderateScale(4),
         width: moderateScale(22),
         height: moderateScale(22),
-    },
-    minusIcon: {
-        width: moderateScale(11),
-    },
-    plusIcon: {
-        width: moderateScale(11),
-        height: moderateScale(11),
+        alignItems: "center",
+        justifyContent: "center",
     },
     countTxt: {
         fontSize: scale(16),

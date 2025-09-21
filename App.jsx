@@ -2,15 +2,18 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import Routes from "./src/navigation/Routes";
 import { useEffect } from "react";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
-import { signOutUser } from "./src/Services/Firebase/auth";
+import { configureReanimatedLogger, ReanimatedLogLevel } from 'react-native-reanimated';
+import Bootsplash from 'react-native-bootsplash';
+
+configureReanimatedLogger({
+  level: ReanimatedLogLevel.warn,
+  strict: false,
+});
 
 function App() {
 
   useEffect(() => {
-    const clearAsyncstorage = async () => {
-      await AsyncStorage.clear()
-    }
-    clearAsyncstorage() 
+    Bootsplash.hide({ fade: true });
   }, [])
 
   return (

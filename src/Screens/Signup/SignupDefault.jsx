@@ -1,4 +1,4 @@
-import { Keyboard, Pressable, StatusBar, Text, View } from 'react-native'
+import { Keyboard, Pressable, Text, View } from 'react-native'
 import React, { useRef, useState } from 'react'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import styles from './Styles/signupDefaultStyles'
@@ -25,10 +25,15 @@ export default function SignupDefault({ navigation }) {
     setFirebaseError(''); // Clear previous errors
 
     const result = await registerUser(values.email, values.password, setFirebaseError);
+    console.log(result);
 
-    if (result.user) {
+    if (result) {
       setShowModal(true);
     }
+
+    setTimeout(() => {
+      setShowModal(false)
+    }, 3000);
   };
 
   const emailField = {
@@ -43,8 +48,7 @@ export default function SignupDefault({ navigation }) {
     label: "Password",
     name: "password",
     placeholder: "Enter your password",
-    firstIcon: "eye-off",
-    secondIcon: "eye",
+    passwordIcon: true,
     inpuRef: passwordRef,
     onSubmitEditing: () => confirmPasswordRef.current?.focus(),
     submitBehavior: 'submit'
@@ -54,16 +58,15 @@ export default function SignupDefault({ navigation }) {
     label: "Confirm Password",
     name: "confirmPassword",
     placeholder: "Enter your confirm password",
-    firstIcon: "eye-off",
-    secondIcon: "eye",
+    passwordIcon: true,
     inpuRef: confirmPasswordRef,
-    submitBehavior: 'blurAndSubmit'
+    submitBehavior: 'blurAndSubmit',
+    onSubmitEditing: () => Keyboard.dismiss(),
   };
 
   return (
-    <KeyboardAvoidingWrapper style={styles.container}>
-      <SafeAreaView style={{ flex: 1 }}>
-        <StatusBar barStyle={"dark-content"} />
+    <SafeAreaView style={styles.container}>
+      <KeyboardAvoidingWrapper style={{ flex: 1 }}>
         <View style={styles.mainContainer}>
           <Text style={styles.heading}>Signup With Email</Text>
           <Formik
@@ -109,14 +112,13 @@ export default function SignupDefault({ navigation }) {
             }}
           </Formik>
           <CustomModal
+            showModal={showModal}
             modalText="Signup Successful!"
             btnTitle={"Done"}
             image={ImagePath.checkMarkIcon}
-            onPress={() => navigation.navigate("Home")}
-            showModal={showModal}
-            setShowModal={setShowModal} />
+            isButtonVisible={false} />
         </View>
-      </SafeAreaView>
-    </KeyboardAvoidingWrapper >
+      </KeyboardAvoidingWrapper>
+    </SafeAreaView>
   )
 }

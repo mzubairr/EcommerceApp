@@ -3,16 +3,16 @@ import { scale, moderateScale, moderateVerticalScale } from 'react-native-size-m
 import Colors from '../constants/colors';
 import { StyleSheet } from 'react-native';
 
-export default function ButtonComp({ btnTitle, disabled, countDown, style = {}, ...props }) {
+export default function ButtonComp({ btnTitle, countDown, style = {}, ...props }) {
     return (
         <TouchableOpacity
             {...props}
             style={[
                 styles.startBtn,
                 { ...style },
-                { backgroundColor: disabled ? Colors.disbaledBtn : Colors.btnBg }
+                { backgroundColor: style.bgColor || Colors.btnBg }
             ]}>
-            <Text style={styles.btnText}>{btnTitle} {countDown > 0 && countDown}</Text>
+            <Text style={[styles.btnText, { color: style.btntxt2 || Colors.btnText }]}>{btnTitle} {countDown > 0 && countDown}</Text>
         </TouchableOpacity>
     )
 }

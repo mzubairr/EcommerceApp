@@ -6,6 +6,7 @@ const styles = StyleSheet.create({
     mainContainer: {
         flex: 1,
         backgroundColor: Colors.bg,
+        paddingBottom: moderateVerticalScale(26),
     },
     headerContainer: {
         paddingHorizontal: moderateScale(20),
@@ -160,6 +161,49 @@ const styles = StyleSheet.create({
         fontSize: scale(14),
         fontFamily: "Satoshi-Medium",
         color: Colors.txtSecondary
+    },
+    modalContainer: {
+        position: "absolute",
+        bottom: 0,
+        left: 0,
+        right: 0,
+        justifyContent: "flex-end",
+        alignItems: "center",
+        paddingHorizontal: moderateScale(20),
+    },
+    modalContent: {
+        width: "100%",
+        backgroundColor: Colors.blackGray,
+        borderRadius: moderateScale(8),
+        padding: moderateScale(20),
+        alignItems: "center",
+        flexDirection: "row",
+        justifyContent: "space-between",
+    },
+    checkmarkIcon: {
+        width: moderateScale(24),
+        height: moderateScale(24),
+    },
+    cancelCircle: {
+        width: moderateScale(24),
+        height: moderateScale(24),
+    },
+    modalTitle: {
+        fontSize: scale(18),
+        fontFamily: "Satoshi-Bold",
+        color: Colors.txtPrimary,
+        marginBottom: moderateScale(12),
+    },
+    modalTitle: {
+        fontSize: scale(18),
+        fontFamily: "Satoshi-Medium",
+        color: Colors.bg,
+    },
+    loading: {
+        flex: 1,
+        justifyContent: "center",
+        alignItems: "center",
+        backgroundColor: Colors.bg
     }
 })
 

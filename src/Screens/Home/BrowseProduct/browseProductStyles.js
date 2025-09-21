@@ -70,10 +70,6 @@ const styles = StyleSheet.create({
         fontFamily: "Satoshi-Regular",
         color: Colors.txtPrimary,
     },
-    cancelIcon: {
-        width: moderateScale(24),
-        height: moderateScale(24),
-    },
     noResultsContainer: {
         flex: 1,
         justifyContent: "center",

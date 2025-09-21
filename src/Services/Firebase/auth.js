@@ -38,7 +38,7 @@ export const loginUser = async (email, password, setFirebaseError) => {
     try {
         const userCredential = await signInWithEmailAndPassword(auth, email, password);
         const user = userCredential.user;
-        return { user, emailVerified: user.emailVerified };
+        return { user };
     } catch (error) {
         let errorMessage;
         switch (error.code) {
@@ -77,12 +77,10 @@ export const resetPasswrod = async (email, setFirebaseError) => {
     }
 };
 
-export const signOutUser = async () => {
+export const signOutUser = async (setFirebaseError) => {
     try {
         await signOut(auth);
-        console.log('User signed out!')
     } catch (error) {
-        console.log('User signed out! error', error)
         setFirebaseError(error);
     }
 }

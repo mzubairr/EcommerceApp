@@ -153,6 +153,13 @@ const styles = StyleSheet.create({
     },
     hotDealSec: {
         marginBottom: moderateVerticalScale(16)
+    },
+
+    loading: {
+        flex: 1,
+        justifyContent: "center",
+        alignItems: "center",
+        backgroundColor: Colors.bg
     }
 })
 

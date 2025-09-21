@@ -1,4 +1,4 @@
-import { Image, StatusBar, Text, TouchableOpacity, View } from 'react-native'
+import { Image, Text, TouchableOpacity, View } from 'react-native'
 import React from 'react'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import styles from './styles'
@@ -19,7 +19,6 @@ export default function OnBoarding({ onComplete }) {
 
   return (
     <SafeAreaView style={styles.container}>
-      <StatusBar barStyle={"dark-content"} />
       <View style={styles.imageContainer}>
         <Image source={imagePath.OnboardingImg}
           resizeMode='cover'

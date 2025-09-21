@@ -1,4 +1,4 @@
-import { Pressable, StatusBar, Text, View } from 'react-native'
+import { Pressable, Text, View } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import styles from './Styles/otpCodeStyles'
@@ -35,7 +35,6 @@ export default function OtpCode({ route }) {
 
   return (
     <SafeAreaView style={styles.container}>
-      <StatusBar barStyle={"dark-content"} />
       <View style={styles.mainContainer}>
         <Text style={styles.heading}>Enter 4 Digit Code</Text>
         <Text style={styles.subText}>Enter 4 digit code that your receive on your email ({userName}).</Text>

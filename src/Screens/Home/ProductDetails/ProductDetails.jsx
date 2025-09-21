@@ -1,13 +1,15 @@
-import { Image, Pressable, ScrollView, Text, TouchableOpacity, View } from 'react-native'
+import { ActivityIndicator, Dimensions, Image, Pressable, ScrollView, Text, TouchableOpacity, View } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import axios from 'axios'
 import styles from './productDetailsStyles'
 import imagePath from '../../../constants/imagePath'
 import ButtonComp from '../../../components/ButtonComp'
-import { FlatList } from 'react-native-gesture-handler'
-import { moderateVerticalScale } from 'react-native-size-matters'
+import { moderateScale, moderateVerticalScale } from 'react-native-size-matters'
 import { addCart, addFavorite, listenToFavorites, removeFavorite } from '../../../Services/Firebase/db'
+import Animated, { useAnimatedStyle, useSharedValue, withTiming } from 'react-native-reanimated'
+import { ChevronDown, ChevronLeft, ChevronUp, Heart, Star, X } from 'lucide-react-native'
+import Colors from '../../../constants/colors'
 
 export default function ProductDetails({ route, navigation }) {
 
@@ -18,9 +20,10 @@ export default function ProductDetails({ route, navigation }) {
     const [lengthMore, setLengthMore] = useState(false); // Is description > 3 lines?
     const [desc, setDesc] = useState('');
     const [trimmedText, setTrimmedText] = useState('');
-    // const [selectedColor, setSelectedColor] = useState('Black');
     const [toggleRating, setToggleRating] = useState(false);
     const [favoriteIds, setFavoriteIds] = useState([]);
+    const [isModal, setIsModal] = useState(false);
+    const [isLoading, setIsLoading] = useState(true);
 
     const toggleFavorite = (productId) => {
         const isFav = favoriteIds.includes(productId);
@@ -37,11 +40,17 @@ export default function ProductDetails({ route, navigation }) {
     useEffect(() => {
         if (!ProductId) return;
         const getSingleProduct = async () => {
-            const response = await axios.get(`https://dummyjson.com/products/${ProductId}`);
-            setSingleProduct(response.data);
-            console.log(response.data);
-            setProductImage(response?.data?.thumbnail);
-            setDesc(response?.data?.description || '');
+            try {
+                const response = await axios.get(`https://dummyjson.com/products/${ProductId}`);
+                setSingleProduct(response.data);
+                console.log(response.data);
+                setProductImage(response?.data?.thumbnail);
+                setDesc(response?.data?.description || '');
+            } catch (error) {
+                console.log(error);
+            } finally {
+                setIsLoading(false);
+            }
         };
         getSingleProduct();
 
@@ -68,15 +77,44 @@ export default function ProductDetails({ route, navigation }) {
         });
     }
 
+    const addtoCart = (productId) => {
+        const result = addCart(productId);
+        if (result) {
+            console.log("done cart", isModal);
+            setIsModal(true);
+            openPopup();
+        }
+    };
+
+
+    const { height } = Dimensions.get("window");
+    const translateY = useSharedValue(height);
+    const animatedStyle = useAnimatedStyle(() => ({
+        transform: [{ translateY: translateY.value }],
+    }));
+
+    const openPopup = () => {
+        translateY.value = withTiming(0, { duration: 300 });
+    };
+
+    const closePopup = () => {
+        translateY.value = withTiming(height, { duration: 300 });
+    };
+
+    if (isLoading) {
+        return (
+            <View style={styles.loading}>
+                <ActivityIndicator size="large" color={Colors.btnBg} />
+            </View>
+        )
+    }
+
     return (
         <SafeAreaView style={styles.mainContainer}>
             <ScrollView showsVerticalScrollIndicator={false}>
                 <View style={styles.headerContainer}>
                     <TouchableOpacity onPress={() => navigation.goBack()}>
-                        <Image
-                            style={styles.arrowIcon}
-                            source={imagePath.arrowLeft}
-                        />
+                        <ChevronLeft size={moderateScale(24)} color="#000" />
                     </TouchableOpacity>
                     <Text style={styles.categoryTitle}>Product Details</Text>
                 </View>
@@ -87,9 +125,10 @@ export default function ProductDetails({ route, navigation }) {
                         resizeMode='contain'
                     />
                     <TouchableOpacity onPress={() => { toggleFavorite(ProductId) }} style={styles.favoriteIcon}>
-                        <Image
-                            source={favoriteIds.includes(ProductId) ? imagePath.savedIcon : imagePath.heart}
-                            resizeMode='contain'
+                        <Heart
+                            size={moderateScale(24)}
+                            fill={favoriteIds.includes(ProductId) ? Colors.error : "#fff"}
+                            color={favoriteIds.includes(ProductId) ? Colors.error : "#000"}
                         />
                     </TouchableOpacity>
                 </View>
@@ -135,19 +174,12 @@ export default function ProductDetails({ route, navigation }) {
                             )}
                         </Text>
                         <View style={styles.separator} />
-                        {/* <Text style={styles.productDetailTitle}>Select Color: {selectedColor}</Text>
-                    <View>
-                        <View style={styles.colorOptionsContainer} />
-                    </View> */}
                         <Pressable
                             onPress={() => setToggleRating(!toggleRating)}
                             style={styles.ratingTitle}>
                             <Text style={styles.productDetailTitle}>Rating & Reviews</Text>
                             <TouchableOpacity onPress={() => setToggleRating(!toggleRating)}>
-                                <Image
-                                    style={[styles.arrowIcon, toggleRating && { transform: [{ rotate: '180deg' }] }]}
-                                    source={imagePath.arrowDown}
-                                />
+                                {toggleRating ? <ChevronUp /> : <ChevronDown />}
                             </TouchableOpacity>
                         </Pressable>
                         <View style={styles.separator} />
@@ -171,16 +203,9 @@ export default function ProductDetails({ route, navigation }) {
                                             ]}>
                                         <View style={styles.reviewHeader}>
                                             {Array.from({ length: 5 }).map((_, index) => (
-                                                <Image
-                                                    key={index}
-                                                    style={styles.reviewIcon}
-                                                    resizeMode='contain'
-                                                    source={
-                                                        index < (review?.rating)
-                                                            ? imagePath.reviewStar   // filled star
-                                                            : imagePath.emptyStar    // empty star
-                                                    }
-                                                />
+                                                index < (review?.rating)
+                                                    ? <Star key={index} size={24} color={"#F6BC2F"} fill={"#F6BC2F"} />
+                                                    : <Star key={index} size={24} color={"#E0E0E5"} fill={"#E0E0E5"} />
                                             ))}
                                             <Text style={styles.reviewerFirstName}>{review?.reviewerName?.split(" ")[0]}</Text>
                                         </View>
@@ -191,9 +216,20 @@ export default function ProductDetails({ route, navigation }) {
                             </>
                         )}
                         <ButtonComp onPress={
-                            () => { addCart(ProductId) }
+                            () => { addtoCart(ProductId) }
                         } btnTitle="Add to Cart" />
                     </View>
+                    {isModal && (
+                        <Animated.View style={[styles.modalContainer, animatedStyle]}>
+                            <View style={styles.modalContent}>
+                                <Image style={styles.checkmarkIcon} source={imagePath.checkmarkCircle} />
+                                <Text style={styles.modalTitle}>Item Added to Saved</Text>
+                                <TouchableOpacity onPress={() => { setIsModal(false); closePopup() }}>
+                                    <X size={moderateScale(24)} color="#fff" />
+                                </TouchableOpacity>
+                            </View>
+                        </Animated.View>
+                    )}
                 </View>
             </ScrollView>
         </SafeAreaView >

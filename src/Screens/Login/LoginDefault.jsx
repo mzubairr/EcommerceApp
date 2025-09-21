@@ -1,4 +1,4 @@
-import { Keyboard, Pressable, StatusBar, Text, View } from 'react-native'
+import { Keyboard, Pressable, Text, View } from 'react-native'
 import React, { useRef, useState } from 'react'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import styles from './Styles/loginDefaultStyles'
@@ -25,11 +25,14 @@ export default function LoginDefault({ navigation }) {
 
     if (!result) return;
 
-    const { user, emailVerified } = result;
-    console.log(emailVerified);
+    const { user } = result;
 
     if (user) {
       setShowModal(true);
+
+      setTimeout(() => {
+        setShowModal(false);   // modal auto close
+      }, 3000);
     }
   }
 
@@ -45,17 +48,16 @@ export default function LoginDefault({ navigation }) {
     label: "Password",
     name: "password",
     placeholder: "Enter your password",
-    firstIcon: "eye-off",
-    secondIcon: "eye",
+    passwordIcon: true,
     inpuRef: passwordRef,
-    submitBehavior: 'blurAndSubmit'
+    submitBehavior: 'blurAndSubmit',
+    onSubmitEditing: () => Keyboard.dismiss(),
   };
 
 
   return (
-    <KeyboardAvoidingWrapper style={styles.container}>
-      <SafeAreaView style={{ flex: 1 }}>
-        <StatusBar barStyle={"dark-content"} />
+    <SafeAreaView style={styles.container}>
+      <KeyboardAvoidingWrapper style={{ flex: 1 }}>
         <View style={styles.mainContainer}>
           <Text style={styles.heading}>Login With Email</Text>
           <Formik
@@ -77,20 +79,18 @@ export default function LoginDefault({ navigation }) {
                   <Pressable onPress={() => navigation.navigate("ForgotPassword")}>
                     <Text style={styles.forgotPass}>Forgot Password</Text>
                   </Pressable>
-                  <ButtonComp disabled onPress={handleSubmit} btnTitle={"Login"} />
+                  <ButtonComp onPress={handleSubmit} btnTitle={"Login"} />
                 </View>
               )
             }}
           </Formik>
           <CustomModal
             modalText="Login Successful!"
-            btnTitle={"Done"}
             image={ImagePath.checkMarkIcon}
-            onPress={() => { navigation.navigate("Home") }}
             showModal={showModal}
-            setShowModal={setShowModal} />
+            isButtonVisible={false} />
         </View>
-      </SafeAreaView>
-    </KeyboardAvoidingWrapper>
+      </KeyboardAvoidingWrapper>
+    </SafeAreaView>
   )
 }

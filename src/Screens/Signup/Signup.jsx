@@ -1,4 +1,4 @@
-import { Alert, Image, StatusBar, Text, TouchableOpacity, TouchableWithoutFeedback, View } from 'react-native'
+import { Alert, Image, Text, TouchableOpacity, TouchableWithoutFeedback, View } from 'react-native'
 import React from 'react'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import styles from './Styles/signupStyles'
@@ -69,7 +69,6 @@ export default function Signup({ navigation }) {
 
   return (
     <SafeAreaView style={styles.container}>
-      <StatusBar barStyle={"dark-content"} />
       <View style={styles.mainContainer1}>
         <View style={styles.mainContainer}>
           <Text style={styles.heading}>Signup to ShopZen</Text>

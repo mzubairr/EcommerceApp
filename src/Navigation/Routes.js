@@ -5,7 +5,7 @@ import HomeStack from './HomeStack';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import OnBoardingStack from './OnboardingStack';
 import { getAuth, onAuthStateChanged } from '@react-native-firebase/auth';
-import { ActivityIndicator, View } from 'react-native';
+import { ActivityIndicator, StatusBar, View } from 'react-native';
 import Colors from '../constants/colors';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
@@ -16,9 +16,10 @@ const Routes = () => {
 
     // Handle onboarding and user
     useEffect(() => {
-
         const subscriber = onAuthStateChanged(getAuth(), (user) => {
-            setUser(user);
+            setTimeout(() => {
+                setUser(user);
+            }, 3000);
         });
 
         const checkOnboarding = async () => {
@@ -52,11 +53,12 @@ const Routes = () => {
     } else if (!user) {
         ScreenToRender = <AuthStack />;
     } else {
-        ScreenToRender = <HomeStack user={user} />;
+        ScreenToRender = <HomeStack />;
     }
 
     return (
         <SafeAreaProvider>
+            <StatusBar barStyle="dark-content" />
             <NavigationContainer>
                 {ScreenToRender}
             </NavigationContainer>

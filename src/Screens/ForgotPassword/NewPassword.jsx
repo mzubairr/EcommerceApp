@@ -1,4 +1,4 @@
-import { Keyboard, KeyboardAvoidingView, Platform, Pressable, ScrollView, StatusBar, Text, TouchableWithoutFeedback, View } from 'react-native'
+import { Text, View } from 'react-native'
 import React, { useState } from 'react'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import styles from './Styles/NewPasswordStyles'
@@ -17,20 +17,19 @@ export default function NewPassword() {
   }
 
   return (
-    <KeyboardAvoidingWrapper>
-      <SafeAreaView style={styles.container}>
-        <StatusBar barStyle={"dark-content"} />
+    <SafeAreaView style={styles.container}>
+      <KeyboardAvoidingWrapper style={{ flex: 1 }}>
         <View style={styles.mainContainer}>
           <Text style={styles.heading}>Create New Passwod</Text>
           <View style={styles.actionBtns}>
-            <InputLabel label={"New Password"} placeholder={"Enter your new password"} firstIcon={"eye-off"} secondIcon={"eye"} />
-            <InputLabel label={"Confirm Password"} placeholder={"Enter your confirm password"} firstIcon={"eye-off"} secondIcon={"eye"} />
-            <InputLabel label={"Confirm Password"} placeholder={"Enter your confirm password"} firstIcon={"eye-off"} secondIcon={"eye"} />
-            <InputLabel label={"Confirm Password"} placeholder={"Enter your confirm password"} firstIcon={"eye-off"} secondIcon={"eye"} />
-            <InputLabel label={"Confirm Password"} placeholder={"Enter your confirm password"} firstIcon={"eye-off"} secondIcon={"eye"} />
-            <InputLabel label={"Confirm Password"} placeholder={"Enter your confirm password"} firstIcon={"eye-off"} secondIcon={"eye"} />
+            <InputLabel label={"New Password"} placeholder={"Enter your new password"} passwordIcon={true} />
+            <InputLabel label={"Confirm Password"} placeholder={"Enter your confirm password"} passwordIcon={true} />
+            <InputLabel label={"Confirm Password"} placeholder={"Enter your confirm password"} passwordIcon={true} />
+            <InputLabel label={"Confirm Password"} placeholder={"Enter your confirm password"} passwordIcon={true} />
+            <InputLabel label={"Confirm Password"} placeholder={"Enter your confirm password"} passwordIcon={true} />
+            <InputLabel label={"Confirm Password"} placeholder={"Enter your confirm password"} passwordIcon={true} />
           </View>
-          <ButtonComp onPress={handleLogin} btnTitle={"Update Passwrod"} />
+          <ButtonComp onPress={handleLogin} btnTitle={"Update Password"} />
           <CustomModal
             modalText="Password updated Successfully!"
             btnTitle={"Continue to Login"}
@@ -38,7 +37,7 @@ export default function NewPassword() {
             showModal={showModal} setShowModal={setShowModal}
             onPress={() => setShowModal(false)} />
         </View>
-      </SafeAreaView>
-    </KeyboardAvoidingWrapper>
+      </KeyboardAvoidingWrapper>
+    </SafeAreaView>
   )
 }

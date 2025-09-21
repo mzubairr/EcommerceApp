@@ -6,6 +6,8 @@ import { SafeAreaView } from 'react-native-safe-area-context'
 import axios from 'axios'
 import Colors from '../../../constants/colors'
 import AsyncStorage from '@react-native-async-storage/async-storage'
+import { ChevronLeft, CircleX, ScanSearch, Search } from 'lucide-react-native'
+import { moderateScale } from 'react-native-size-matters'
 
 export default function BrowseProduct({ navigation }) {
 
@@ -102,16 +104,10 @@ export default function BrowseProduct({ navigation }) {
     return (
         <SafeAreaView style={styles.mainContainer}>
             <TouchableOpacity style={styles.backButton} onPress={() => navigation.goBack()}>
-                <Image
-                    style={styles.arrowIcon}
-                    source={imagePath.arrowLeft}
-                />
+                <ChevronLeft size={moderateScale(24)} color="#000" />
             </TouchableOpacity>
             <View style={[styles.searchBarContainer, getBorderColor()]}>
-                <Image
-                    style={styles.bellIcon}
-                    source={imagePath.searchIcon}
-                />
+                <Search size={moderateScale(24)} color="#000" />
                 <TextInput
                     autoFocus
                     autoCapitalize='none'
@@ -127,16 +123,10 @@ export default function BrowseProduct({ navigation }) {
                 {searchQuery.length > 0
                     ?
                     <TouchableOpacity onPress={() => setSearchQuery('')}>
-                        <Image
-                            style={styles.cancelIcon}
-                            source={imagePath.cancelCircleDark}
-                        />
+                        <CircleX size={moderateScale(24)} color="#000" />
                     </TouchableOpacity>
                     :
-                    <Image
-                        style={styles.bellIcon}
-                        source={imagePath.searchVisualIcon}
-                    />
+                    <ScanSearch size={moderateScale(24)} color="#000" />
                 }
             </View>
             <View style={{ flex: 1 }}>
@@ -161,11 +151,7 @@ export default function BrowseProduct({ navigation }) {
                                     <TouchableOpacity onPress={() => setSearchQuery(item.query)} style={styles.queries}>
                                         <Text style={styles.queryText}>{item.query}</Text>
                                         <Pressable onPress={() => removePopularSearch(index)}>
-                                            <Image
-                                                style={styles.cancelIcon}
-                                                source={imagePath.cancelCircle}
-                                                resizeMode='contain'
-                                            />
+                                            <CircleX size={moderateScale(24)} color={Colors.inActiveBorder} />
                                         </Pressable>
                                     </TouchableOpacity>
                                 )}

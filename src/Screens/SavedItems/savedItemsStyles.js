@@ -14,11 +14,7 @@ const styles = StyleSheet.create({
         paddingVertical: moderateScale(16),
         justifyContent: 'flex-start',
     },
-    arrowIcon: {
-        width: moderateScale(24),
-        height: moderateScale(24)
-    },
-    categoryTitle: {
+    headerTitle: {
         fontSize: scale(24),
         fontFamily: "Satoshi-Bold",
         color: Colors.text,
@@ -44,10 +40,6 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         gap: moderateScale(16)
     },
-    heartDuotoneImg: {
-        width: moderateScale(64),
-        height: moderateScale(64),
-    },
     emptyFavTitle: {
         fontSize: scale(20),
         fontFamily: "Satoshi-Bold",
@@ -60,6 +52,12 @@ const styles = StyleSheet.create({
         color: Colors.txtSecondary,
         textAlign: 'center',
         width: moderateScale(270),
+    },
+    loading: {
+        flex: 1,
+        justifyContent: "center",
+        alignItems: "center",
+        backgroundColor: Colors.bg
     }
 })
 

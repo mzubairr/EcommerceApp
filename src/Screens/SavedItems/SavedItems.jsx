@@ -1,16 +1,19 @@
-import { Alert, FlatList, Image, Text, TouchableOpacity, View } from 'react-native'
-import React, { useCallback, useEffect, useState } from 'react'
+import { ActivityIndicator, Alert, FlatList, Text, TouchableOpacity, View } from 'react-native'
+import React, { useEffect, useState } from 'react'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import axios from 'axios'
 import styles from './savedItemsStyles'
-import imagePath from '../../constants/imagePath'
 import ProductCard from '../../components/ProductCard'
 import { listenToFavorites, removeFavorite } from '../../Services/Firebase/db'
+import { ChevronLeft, Heart } from 'lucide-react-native'
+import { moderateScale } from 'react-native-size-matters'
+import Colors from '../../constants/colors'
 
 export default function SavedItems({ navigation }) {
 
   const [favoriteIds, setFavoriteIds] = useState([]);
   const [favProduct, setFavProduct] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
 
   const toggleFavorite = async (productId) => {
     const isFav = favoriteIds.includes(productId);
@@ -31,6 +34,7 @@ export default function SavedItems({ navigation }) {
 
     async function fetchFavorites(favProducts) {
       if (favProducts.length < 1) return;
+      setIsLoading(true)
       try {
         // create an array of fetch promises
         const promises = favProducts?.map(id =>
@@ -41,7 +45,9 @@ export default function SavedItems({ navigation }) {
         const results = await Promise.all(promises);
 
         setFavProduct(results);
+        setIsLoading(false)
       } catch (err) {
+        setIsLoading(false)
         Alert.alert("Error", "Please try again later.");
       }
     }
@@ -50,16 +56,22 @@ export default function SavedItems({ navigation }) {
 
   }, [])
 
+  if (isLoading) {
+    return (
+      <View style={styles.loading}>
+        <ActivityIndicator size="large" color={Colors.btnBg} />
+      </View>
+    )
+  }
+
+
   return (
     <SafeAreaView style={styles.mainContainer}>
       <View style={styles.headerContainer}>
         <TouchableOpacity onPress={() => navigation.goBack()}>
-          <Image
-            style={styles.arrowIcon}
-            source={imagePath.arrowLeft}
-          />
+          <ChevronLeft size={moderateScale(24)} color="#000" />
         </TouchableOpacity>
-        <Text style={styles.categoryTitle}>Saved Items</Text>
+        <Text style={styles.headerTitle}>Saved Items</Text>
       </View>
       <Text
         style={styles.categoryItemCount}>
@@ -83,7 +95,7 @@ export default function SavedItems({ navigation }) {
         />
       ) : (
         <View style={styles.EmptyFavContainer}>
-          <Image source={imagePath.heartDuotone} style={styles.heartDuotoneImg} resizeMode='cover' />
+          <Heart size={moderateScale(64)} color={Colors.inActiveBorder} />
           <Text style={styles.emptyFavTitle}>No Saved Items!</Text>
           <Text style={styles.emptyFavDesc}>You don’t have any saved items. Go to home and add some.</Text>
         </View>

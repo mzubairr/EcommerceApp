@@ -1,5 +1,5 @@
-import { Alert, Image, Pressable, StatusBar, Text, TouchableOpacity, View } from 'react-native'
-import React, { useEffect } from 'react'
+import { Alert, Image, Pressable, Text, TouchableOpacity, View } from 'react-native'
+import React from 'react'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import styles from './Styles/loginStyles'
 import ButtonComp from '../../components/ButtonComp'
@@ -67,7 +67,6 @@ export default function Login({ navigation }) {
 
   return (
     <SafeAreaView style={styles.container}>
-      <StatusBar barStyle={"dark-content"} />
       <View style={styles.mainContainer1}>
         <View style={styles.mainContainer}>
           <Text style={styles.heading}>Login to ShopZen</Text>

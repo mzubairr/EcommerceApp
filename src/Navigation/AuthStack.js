@@ -20,7 +20,7 @@ export default function AuthStack() {
             <Stack.Screen name="Signup" component={Signup} />
             <Stack.Screen name="SignupDefault" component={SignupDefault} />
             <Stack.Screen name="ForgotPassword" component={ForgotPassword} />
-            <Stack.Screen name="OtpCode" component={OtpCode} />
-            <Stack.Screen name="NewPassword" component={NewPassword} />
+            {/* <Stack.Screen name="OtpCode" component={OtpCode} />
+            <Stack.Screen name="NewPassword" component={NewPassword} /> */}
         </Stack.Navigator>)
 }

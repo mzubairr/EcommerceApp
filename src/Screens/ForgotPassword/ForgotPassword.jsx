@@ -1,4 +1,4 @@
-import { Keyboard, StatusBar, Text, View } from 'react-native'
+import { Alert, Keyboard, Text, View } from 'react-native'
 import React, { useState } from 'react'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import styles from './Styles/forgotPasswordStyles'
@@ -19,7 +19,15 @@ export default function ForgotPassword({ navigation }) {
         setFirebaseError('');
         const resetEmail = await resetPasswrod(values.email, setFirebaseError);
         if (resetEmail) {
-            navigation.navigate("OtpCode", { userName: values.email });
+            // navigation.navigate("OtpCode", { userName: values.email });
+            Alert.alert(
+                "Email Sent ✓",
+                "Password reset instructions have been sent to your email. Please check both your inbox and spam folder.",
+                [{
+                    text: "OK",
+                    onPress: () => navigation.navigate("Login")
+                }]
+            );
         }
     }
 
@@ -31,9 +39,8 @@ export default function ForgotPassword({ navigation }) {
     }
 
     return (
-        <KeyboardAvoidingWrapper style={styles.container}>
-            <SafeAreaView style={{ flex: 1 }}>
-                <StatusBar barStyle={"dark-content"} />
+        <SafeAreaView style={styles.container}>
+            <KeyboardAvoidingWrapper style={{ flex: 1 }}>
                 <View style={styles.mainContainer}>
                     <Text style={styles.heading}>Forgot Password</Text>
                     <Text style={styles.subText}>Enter your email id for the verification process, we will send 4 digit to your email</Text>
@@ -57,7 +64,7 @@ export default function ForgotPassword({ navigation }) {
                         )}
                     </Formik>
                 </View>
-            </SafeAreaView >
-        </KeyboardAvoidingWrapper >
+            </KeyboardAvoidingWrapper>
+        </SafeAreaView>
     )
 }

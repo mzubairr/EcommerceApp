@@ -1,18 +1,20 @@
-import { FlatList, Image, Text, TouchableOpacity, View } from 'react-native'
+import { ActivityIndicator, FlatList, Text, TouchableOpacity, View } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import axios from 'axios'
 import styles from './categoryStyles'
-import imagePath from '../../../constants/imagePath'
 import ProductCard from '../../../components/ProductCard'
-import firestore from '@react-native-firebase/firestore';
 import { addFavorite, listenToFavorites, removeFavorite } from '../../../Services/Firebase/db'
+import { ChevronLeft } from 'lucide-react-native'
+import { moderateScale } from 'react-native-size-matters'
+import Colors from '../../../constants/colors'
 
 export default function Category({ route, navigation }) {
 
     const [queryProduct, setQueryProduct] = useState([])
     const { category, results } = route.params;
     const [favoriteIds, setFavoriteIds] = useState([]);
+    const [isLoading, setIsLoading] = useState(true);
 
     const toggleFavorite = async (productId) => {
         const isFav = favoriteIds.includes(productId);
@@ -29,8 +31,15 @@ export default function Category({ route, navigation }) {
     useEffect(() => {
         if (!category) return
         const getSingleProduct = async () => {
-            const response = await axios.get(`https://dummyjson.com/products/category/${category}`);
-            setQueryProduct(response.data.products);
+            try {
+                setIsLoading(true);
+                const response = await axios.get(`https://dummyjson.com/products/category/${category}`);
+                setQueryProduct(response.data.products);
+            } catch (error) {
+                console.log(error);
+            } finally {
+                setIsLoading(false);
+            }
         }
         getSingleProduct();
 
@@ -39,14 +48,20 @@ export default function Category({ route, navigation }) {
         return () => unsubscribe();
     }, [])
 
+
+    if (isLoading) {
+        return (
+            <View style={styles.loading}>
+                <ActivityIndicator size="large" color={Colors.btnBg} />
+            </View>
+        )
+    }
+
     return (
         <SafeAreaView style={styles.mainContainer}>
             <View style={styles.headerContainer}>
                 <TouchableOpacity onPress={() => navigation.goBack()}>
-                    <Image
-                        style={styles.arrowIcon}
-                        source={imagePath.arrowLeft}
-                    />
+                    <ChevronLeft size={moderateScale(24)} color="#000" />
                 </TouchableOpacity>
                 <Text style={styles.categoryTitle}>{category}</Text>
             </View>
