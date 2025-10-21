@@ -1,97 +1,101 @@
-This is a new [**React Native**](https://reactnative.dev) project, bootstrapped using [`@react-native-community/cli`](https://github.com/react-native-community/cli).
+# 🛍️ React Native eCommerce App
 
-# Getting Started
+A modern React Native eCommerce app for Android that allows users to browse products, view details, and manage their cart.
 
-> **Note**: Make sure you have completed the [Set Up Your Environment](https://reactnative.dev/docs/set-up-your-environment) guide before proceeding.
+## 🔧 Features
 
-## Step 1: Start Metro
+- 🛒 Browse product list
+- 📦 View detailed product information (price, description, etc.)
+- 🧺 Add and remove items from cart
+- 🔐 User authentication with login and signup
+- 🎨 Clean UI with custom styling
 
-First, you will need to run **Metro**, the JavaScript build tool for React Native.
+---
+## 📸 App Screenshots
 
-To start the Metro dev server, run the following command from the root of your React Native project:
+### Welcome Screen  
+<!-- <img src="https://github.com/user-attachments/assets/0f483ff7-2051-44af-8e38-c16ed28e5418" width="350" alt="Welcome Screen" />   -->
+<br>
 
-```sh
-# Using npm
-npm start
+### Login Screen  
+<!-- <img src="https://github.com/user-attachments/assets/74d4227c-2a9d-498b-a033-f10b8c1492d3" width="350" alt="Login Screen" />   -->
+<br>
 
-# OR using Yarn
-yarn start
+### Home Screen  
+<!-- <img src="https://github.com/user-attachments/assets/dc0ce893-ec04-4149-b149-62d45ec4330c" width="350" alt="Home Screen" />   -->
+<br>
+
+### Saved Screen
+<!-- <img src="https://github.com/user-attachments/assets/8da0e10c-7b23-46ab-8467-e0bfce309b74" width="350" alt="Restaurant Info Screen" />   -->
+<br>
+
+### Cart Screen  
+<!-- <img src="https://github.com/user-attachments/assets/c618f137-cec5-475e-8f99-239f23e157b9" width="350" alt="History Screen" />   -->
+<br>
+
+### Profile Screen  
+<!-- <img src="https://github.com/user-attachments/assets/009f2090-333d-43ff-b8c8-becd866d2e4c" width="350" alt="Profile Screen" /> -->
+
+
+## ⚙️ Setup Instructions
+
+### 1. Clone the Repository
+
+```bash
+git clone https://github.com/mzubairr/EcommerceApp.git  
+cd EcommerceApp
 ```
 
-## Step 2: Build and run your app
+### 2. Install Dependencies
 
-With Metro running, open a new terminal window/pane from the root of your React Native project, and use one of the following commands to build and run your Android or iOS app:
-
-### Android
-
-```sh
-# Using npm
-npm run android
-
-# OR using Yarn
-yarn android
+```bash
+npm install
 ```
 
-### iOS
+### 3. Start Metro Bundler
 
-For iOS, remember to install CocoaPods dependencies (this only needs to be run on first clone or after updating native deps).
-
-The first time you create a new project, run the Ruby bundler to install CocoaPods itself:
-
-```sh
-bundle install
+```bash
+npx react-native start
 ```
 
-Then, and every time you update your native dependencies, run:
+### 4. Run on Android
 
-```sh
-bundle exec pod install
+```bash
+npx react-native run-android
 ```
 
-For more information, please visit [CocoaPods Getting Started guide](https://guides.cocoapods.org/using/getting-started.html).
+## 📁 Folder Structure
 
-```sh
-# Using npm
-npm run ios
-
-# OR using Yarn
-yarn ios
+```
+ecommerce-app/
+├── src/
+│   ├── components/  → Reusable UI components (ProductCard, CartItem, etc.)
+│   ├── navigation/  → App navigation setup
+│   ├── assets/      → App images
+│   ├── screens/     → App screens
+│   ├── services/    → Firebase helper functions
+│   └── formik/      → Formik schema for authentication
+└── App.jsx
 ```
 
-If everything is set up correctly, you should see your new app running in the Android Emulator, iOS Simulator, or your connected device.
+## 🛠 Tech Stack
 
-This is one way to run your app — you can also build it directly from Android Studio or Xcode.
+- React Native CLI
+- Firebase Firestore & Authentication
+- React Navigation
+- Formik
 
-## Step 3: Modify your app
+## 🚀 Usage
 
-Now that you have successfully run the app, let's make changes!
+- Users can sign up or log in using Firebase Authentication.  
+- Browse and view products with price and details.  
+- Add or remove products from the cart.  
+- Place an order. All cart and user data are stored in Firebase Firestore in real time.  
 
-Open `App.tsx` in your text editor of choice and make some changes. When you save, your app will automatically update and reflect these changes — this is powered by [Fast Refresh](https://reactnative.dev/docs/fast-refresh).
+## 📝 Notes
 
-When you want to forcefully reload, for example to reset the state of your app, you can perform a full reload:
-
-- **Android**: Press the <kbd>R</kbd> key twice or select **"Reload"** from the **Dev Menu**, accessed via <kbd>Ctrl</kbd> + <kbd>M</kbd> (Windows/Linux) or <kbd>Cmd ⌘</kbd> + <kbd>M</kbd> (macOS).
-- **iOS**: Press <kbd>R</kbd> in iOS Simulator.
-
-## Congratulations! :tada:
-
-You've successfully run and modified your React Native App. :partying_face:
-
-### Now what?
-
-- If you want to add this new React Native code to an existing application, check out the [Integration guide](https://reactnative.dev/docs/integration-with-existing-apps).
-- If you're curious to learn more about React Native, check out the [docs](https://reactnative.dev/docs/getting-started).
-
-# Troubleshooting
-
-If you're having issues getting the above steps to work, see the [Troubleshooting](https://reactnative.dev/docs/troubleshooting) page.
-
-# Learn More
-
-To learn more about React Native, take a look at the following resources:
-
-- [React Native Website](https://reactnative.dev) - learn more about React Native.
-- [Getting Started](https://reactnative.dev/docs/environment-setup) - an **overview** of React Native and how setup your environment.
-- [Learn the Basics](https://reactnative.dev/docs/getting-started) - a **guided tour** of the React Native **basics**.
-- [Blog](https://reactnative.dev/blog) - read the latest official React Native **Blog** posts.
-- [`@facebook/react-native`](https://github.com/facebook/react-native) - the Open Source; GitHub **repository** for React Native.
+- Firebase handles user authentication and Firestore data storage.  
+- All data updates in real time from Firestore.  
+- The app is currently **Android only**.  
+- UI is styled using **custom StyleSheet**, no external styling libraries.  
+- Checkout, payments, and location selection are **not implemented**.
