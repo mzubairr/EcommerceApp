@@ -13,29 +13,24 @@ A modern React Native eCommerce app for Android that allows users to browse prod
 ---
 ## 📸 App Screenshots
 
-### Welcome Screen  
-<!-- <img src="https://github.com/user-attachments/assets/0f483ff7-2051-44af-8e38-c16ed28e5418" width="350" alt="Welcome Screen" />   -->
-<br>
-
-### Login Screen  
-<!-- <img src="https://github.com/user-attachments/assets/74d4227c-2a9d-498b-a033-f10b8c1492d3" width="350" alt="Login Screen" />   -->
+### Signup Screen  
+<img width="300" alt="Signup" src="https://github.com/user-attachments/assets/0bde0692-b60c-4649-beed-ab0a19b33420" />
 <br>
 
 ### Home Screen  
-<!-- <img src="https://github.com/user-attachments/assets/dc0ce893-ec04-4149-b149-62d45ec4330c" width="350" alt="Home Screen" />   -->
+<img width="300" height="2992" alt="Home" src="https://github.com/user-attachments/assets/875685fe-d5e2-460b-944a-9eb68bef4eb8" />
 <br>
 
 ### Saved Screen
-<!-- <img src="https://github.com/user-attachments/assets/8da0e10c-7b23-46ab-8467-e0bfce309b74" width="350" alt="Restaurant Info Screen" />   -->
+<img width="300" alt="Saved" src="https://github.com/user-attachments/assets/0d077d83-421b-4ef1-8af2-553ce22b1922" />
 <br>
 
 ### Cart Screen  
-<!-- <img src="https://github.com/user-attachments/assets/c618f137-cec5-475e-8f99-239f23e157b9" width="350" alt="History Screen" />   -->
+<img width="300" alt="Cart" src="https://github.com/user-attachments/assets/ac9edab1-f1b3-415c-bd47-35f3dbf612f0" />
 <br>
 
 ### Profile Screen  
-<!-- <img src="https://github.com/user-attachments/assets/009f2090-333d-43ff-b8c8-becd866d2e4c" width="350" alt="Profile Screen" /> -->
-
+<img width="300" alt="Profile" src="https://github.com/user-attachments/assets/2bcce98e-5874-405d-81f0-7c73029b5852" />
 
 ## ⚙️ Setup Instructions
 
