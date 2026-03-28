@@ -3,7 +3,7 @@
 A modern React Native eCommerce app for Android that allows users to browse products, view details, and manage their cart.
 
 ## 📺 Project Demo
-<video src="https://github.com/user-attachments/assets/daac4595-9ab7-42a4-899d-7e64a1f81441" width="100" controls></video>
+<video src="https://github.com/user-attachments/assets/daac4595-9ab7-42a4-899d-7e64a1f81441" controls></video>
 
 ## 🔧 Features
 
